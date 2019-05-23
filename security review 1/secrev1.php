@@ -7,12 +7,12 @@ function auth_attempted() {
 
 	if (++$_SESSION['login_attempts'] > MAX_LOGIN_ATTEMPTS) {
 		$_SESSION['user_state'] = "timelocked";
-		$_SESSION['timelock'] = time() + 3600; // lockout for 1 hour
+		$_SESSION['timelock'] = time() + 3600; /* lockout for 1 hour */
 	}
 }
 
 function generate_2fa() {
-	$_SESSION['2fa_expiry'] = time() + 60; // 1 minute expiry
+	$_SESSION['2fa_expiry'] = time() + 60; /* 1 minute expiry */
 	srand(time());
 	return sprintf("%06d", rand(0, 999999));
 }
@@ -21,7 +21,7 @@ function is_valid_2fa($code) {
 	return (time() < $_SESSION['2fa_expiry'] && hash_equals($code, $_SESSION['2fa_code']));
 }
 
-// assume these two functions are imported from elsewhere and are secure
+/* assume these two functions are imported from elsewhere and are secure */
 function is_user_password_valid($user, $password) {}
 function send_2fa_to_user($user, $code) {}
 
@@ -46,7 +46,7 @@ case 'login':
 	if (isset($_POST['user'], $_POST['password'])) {
 		if (is_user_password_valid($_POST['user'], $_POST['password'])) {
 			$_SESSION['user'] = $_POST['user'];
-			$_SESSION['user_state'] = '2fa'; // password is valid, require two-factor auth
+			$_SESSION['user_state'] = '2fa'; /* password is valid, require two-factor auth */
 			$_SESSION['2fa_code'] = generate_2fa();
 			send_2fa_to_user($_SESSION['user'], $_SESSION['2fa_code']);
 		} else {
@@ -71,7 +71,7 @@ case 'timelocked':
 	if (time() < $_SESSION['timelock']) {
 		http_response_code(403);
 		exit();
-	} else { // timelock has expired
+	} else { /* timelock has expired */
 		unset($_SESSION['timelock']);
 		$_SESSION['user_state'] == 'login';
 		$_SESSION['login_attempts'] = 0;
