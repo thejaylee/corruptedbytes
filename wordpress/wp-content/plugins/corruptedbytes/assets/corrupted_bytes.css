@@ -1,0 +1,58 @@
+code {
+	white-space: pre-wrap;
+}
+.code-source {
+	margin-left: 2rem;
+	margin-bottom: 1rem;
+}
+
+.revealer, .toggler {
+	padding-top: 1rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.revealer .banner, .toggler .banner {
+	background-color: #222;
+	border-radius: 1rem;
+	cursor: pointer;
+	font-size: 1.5rem;
+	padding: 1rem 1rem;
+	text-transform: capitalize;
+}
+.revealer .banner:before, .toggler .banner:before {
+	font-weight: bold;
+	letter-spacing: 0.25rem;
+	margin-right: 0.5rem;
+	transition: letter-spacing 0.25s;
+}
+.toggler.open .banner:before {
+	content: "[-]";
+}
+.toggler.open .banner:hover:before {
+	letter-spacing: 1rem;
+}
+.revealer.open .banner {
+	display: none;
+}
+.revealer.closed .banner:before, .toggler.closed .banner:before {
+	content: "[+]";
+}
+.revealer.closed .banner:hover:before, .toggler.closed .banner:hover:before {
+	letter-spacing: 1rem;
+}
+
+.revealer .content, .toggler .content {
+	transition: opacity 0.25s linear;
+}
+.toggler .content {
+	padding-left: 2rem;
+}
+.revealer.open .content, .toggler.open .content {
+	opacity: 1;
+	display: block;
+}
+.revealer.closed .content, .toggler.closed .content {
+	opacity: 0;
+	display: none;
+}
