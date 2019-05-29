@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import bcrypt
-from functools import reduce
 
 work_factor = 10
 
